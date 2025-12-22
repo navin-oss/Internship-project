@@ -69,7 +69,6 @@ router.delete("/delete/:videoId", adminAuth, (req, res) => {
   );
 });
 
-module.exports = router;
 //student API
 ///student/my-courses GET get all registered courses of a student
 router.get('/my-courses', (req, res) => {
@@ -84,27 +83,46 @@ router.get('/my-courses', (req, res) => {
     res.send(result.createResult(error, data));
   })
 });
-// my-course with videos
-router.get("/my-course-videos", (req, res) => {
-  const { email } = req.query;
 
-  if (!email) {
-    return res.status(400).json({ message: "email is required" });
-  }
+//student put
+//new password,change password
+router.put("/change-password", (req, res) => {
+    const { email, newPassword, confirmPassword } = req.body
 
-  const sql = `
-SELECT s.name, c.course_name, v.title, v.youtube_url
-FROM students s
-JOIN courses c ON s.course_id = c.course_id
-JOIN videos v ON c.course_id = v.course_id
-WHERE s.email = ?`;
-
-
-  pool.query(sql, [email], (error, data) => {
-    if (error) {
-      res.status(500).json(error);
-    } else {
-      res.json(data);
+    if (newPassword !== confirmPassword) {
+        res.send(result.createResult("Password not matching", null))
+        return
     }
-  });
-});
+    
+
+    const sql = `UPDATE users SET password=? WHERE email=?`
+    pool.query(sql, [newPassword, email], (error, data) => {
+        res.send(result.createResult(error, data))
+    })
+})
+// // my-course with videos
+// router.get("/my-course-videos", (req, res) => {
+//   const { email } = req.query;
+
+//   if (!email) {
+//     return res.status(400).json({ message: "email is required" });
+//   }
+
+//   const sql = `
+// SELECT s.name, c.course_name, v.title, v.youtube_url
+// FROM students s
+// JOIN courses c ON s.course_id = c.course_id
+// JOIN videos v ON c.course_id = v.course_id
+// WHERE s.email = ?`;
+
+
+//   pool.query(sql, [email], (error, data) => {
+//     if (error) {
+//       res.status(500).json(error);
+//     } else {
+//       res.json(data);
+//     }
+//   });
+// });
+
+module.exports = router;
