@@ -69,8 +69,6 @@ router.delete("/delete/:videoId", adminAuth, (req, res) => {
   );
 });
 
-module.exports = router;
-//student API
 ///student/my-courses GET get all registered courses of a student
 router.get('/my-courses', (req, res) => {
   const { email } = req.query;
@@ -84,6 +82,39 @@ router.get('/my-courses', (req, res) => {
     res.send(result.createResult(error, data));
   })
 });
+
+
+//registers student to a course
+router.post('/register-to-course',(req,res)=>{
+    //console.log ("registration");
+    const {name, email, course_id, mobile_no} =req.body;
+    const sql=`insert into students (name, email, course_id, mobile_no) values(?,?,?,?)`;
+    pool.query(sql,[name, email, course_id, mobile_no],(error,data)=>{
+         res.send(result.createResult(error, data))
+    })
+    
+});
+
+// change password
+
+router.put("/change-password",(req,res) =>{
+  const{email,newPassword,confirmpassword}= req.body;
+ if(newPassword != confirmpassword)
+{
+    return res.status(400).json({
+      message: "New password and confirm password do not match"
+    });
+}
+const sql = `UPDATE users SET password = ? WHERE email = ?`;
+
+
+pool.query(sql,[newPassword,email],(error,data)=>{
+     res.send(result.createResult(error, data))
+});
+});
+
+
+
 // my-course with videos
 router.get("/my-course-videos", (req, res) => {
   const { email } = req.query;
@@ -108,3 +139,7 @@ WHERE s.email = ?`;
     }
   });
 });
+
+
+
+module.exports = router;
