@@ -130,12 +130,14 @@ JOIN courses c ON s.course_id = c.course_id
 JOIN videos v ON c.course_id = v.course_id
 WHERE s.email = ?`;
 
+//student put
+//new password,change password
+router.put("/change-password", (req, res) => {
+    const { email, newPassword, confirmPassword } = req.body
 
-  pool.query(sql, [email], (error, data) => {
-    if (error) {
-      res.status(500).json(error);
-    } else {
-      res.json(data);
+    if (newPassword !== confirmPassword) {
+        res.send(result.createResult("Password not matching", null))
+        return
     }
   });
 });
