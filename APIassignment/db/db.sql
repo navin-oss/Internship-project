@@ -1,19 +1,15 @@
-1.Create Database:
-
-CREATE DATABASE learning_platform;
+-- 1. Create & switch database
+CREATE DATABASE IF NOT EXISTS learning_platform;
 USE learning_platform;
 
---------------------------------------
-2.Create User :
-
+-- 2. Users table
 CREATE TABLE users (
     email VARCHAR(100) PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'student') NOT NULL
 );
---------------------------------------
-3.Create courses:
 
+-- 3. Courses table
 CREATE TABLE courses (
     course_id INT PRIMARY KEY AUTO_INCREMENT,
     course_name VARCHAR(100) NOT NULL,
@@ -23,9 +19,8 @@ CREATE TABLE courses (
     end_date DATE,
     video_expire_days INT
 );
-----------------------------------------
-4.Create students:
 
+-- 4. Students table
 CREATE TABLE students (
     reg_no INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100),
@@ -33,12 +28,15 @@ CREATE TABLE students (
     course_id INT,
     mobile_no BIGINT,
     profile_pic BLOB,
-    FOREIGN KEY (email) REFERENCES users(email),
-    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+    CONSTRAINT fk_student_email
+        FOREIGN KEY (email) REFERENCES users(email)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_student_course
+        FOREIGN KEY (course_id) REFERENCES courses(course_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
--------------------------------
-5.Create videos :
 
+-- 5. Videos table
 CREATE TABLE videos (
     video_id INT PRIMARY KEY AUTO_INCREMENT,
     course_id INT,
@@ -46,9 +44,13 @@ CREATE TABLE videos (
     description VARCHAR(255),
     youtube_url VARCHAR(255),
     added_at DATE,
-    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+    CONSTRAINT fk_video_course
+        FOREIGN KEY (course_id) REFERENCES courses(course_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
-----------------------------------------
+
+-- ---------------- INSERT DATA ----------------
+
 INSERT INTO users VALUES
 ('admin@gmail.com', 'admin123', 'admin'),
 ('navin@gmail.com', 'navin123', 'student'),
@@ -56,8 +58,7 @@ INSERT INTO users VALUES
 ('priya@gmail.com', 'priya123', 'student'),
 ('anita@gmail.com', 'anita123', 'student');
 
-
-INSERT INTO courses 
+INSERT INTO courses
 (course_name, description, fees, start_date, end_date, video_expire_days)
 VALUES
 ('Java Full Stack', 'Java + Spring + MySQL', 15000, '2025-01-01', '2025-06-01', 180),
@@ -66,8 +67,7 @@ VALUES
 ('Web Development', 'HTML CSS JS React', 10000, '2025-03-01', '2025-08-01', 210),
 ('AI Basics', 'Intro to Artificial Intelligence', 20000, '2025-04-01', '2025-09-01', 240);
 
-
-INSERT INTO students 
+INSERT INTO students
 (name, email, course_id, mobile_no, profile_pic)
 VALUES
 ('Navin Karavade', 'navin@gmail.com', 1, 9356771234, NULL),
@@ -76,23 +76,12 @@ VALUES
 ('Anita Deshmukh', 'anita@gmail.com', 4, 9988776655, NULL),
 ('Karan Joshi', 'admin@gmail.com', 5, 9090909090, NULL);
 
-
 INSERT INTO videos
 (course_id, title, description, youtube_url, added_at)
 VALUES
-(1, 'Introduction to Java', 'Basics of Java Programming',
- 'https://youtube.com/java-intro', CURDATE()),
-
-(2, 'Python for ML', 'Python basics for ML',
- 'https://youtube.com/python-ml', CURDATE()),
-
-(3, 'Arrays in DSA', 'Array concepts in Java',
- 'https://youtube.com/dsa-arrays', CURDATE()),
-
-(4, 'HTML Basics', 'Intro to HTML',
- 'https://youtube.com/html-basics', CURDATE()),
-
-(5, 'What is AI?', 'AI fundamentals',
- 'https://youtube.com/ai-basics', CURDATE());
-
+(1, 'Introduction to Java', 'Basics of Java Programming', 'https://youtube.com/java-intro', CURDATE()),
+(2, 'Python for ML', 'Python basics for ML', 'https://youtube.com/python-ml', CURDATE()),
+(3, 'Arrays in DSA', 'Array concepts in Java', 'https://youtube.com/dsa-arrays', CURDATE()),
+(4, 'HTML Basics', 'Intro to HTML', 'https://youtube.com/html-basics', CURDATE()),
+(5, 'What is AI?', 'AI fundamentals', 'https://youtube.com/ai-basics', CURDATE());
 

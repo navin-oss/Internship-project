@@ -1,12 +1,13 @@
-const express = require("express");
-const pool = require("../db/pool");
-const result = require("../utils/result");
-const adminAuth = require("../utils/auth");
+const express = require("express")
+const pool = require("../db/pool")
+const result = require("../utils/result")
+const { checkAuthorization } = require("../utils/auth")
+
 const router=express.Router();
 
 
 //toget all videos
-router.get("/all-videos", adminAuth, (req, res) => {
+router.get("/all-videos",checkAuthorization, (req, res) => {
   const { courseId } = req.query;
 
   let sql = "SELECT * FROM videos";
@@ -23,7 +24,7 @@ router.get("/all-videos", adminAuth, (req, res) => {
 });
 
 //add video
-router.post("/add", adminAuth, (req, res) => {
+router.post("/add", checkAuthorization,(req, res) => {
   const { courseId, title,  description, youtubeURL} = req.body;
 
   const sql = `
@@ -40,7 +41,7 @@ router.post("/add", adminAuth, (req, res) => {
 
 
 //update video
-router.put("/update/:videoId", adminAuth, (req, res) => {
+router.put("/update/:videoId", checkAuthorization, (req, res) => {
   const { videoId } = req.params;
   const { courseId, title, youtubeURL, description } = req.body;
 
@@ -59,7 +60,7 @@ router.put("/update/:videoId", adminAuth, (req, res) => {
 
 
 //delete video
-router.delete("/delete/:videoId", adminAuth, (req, res) => {
+router.delete("/delete/:videoId",checkAuthorization,  (req, res) => {
   const { videoId } = req.params;
 
   pool.query(
@@ -68,9 +69,6 @@ router.delete("/delete/:videoId", adminAuth, (req, res) => {
     (err, data) => res.send(result.createResult(err, data))
   );
 });
-
-
-
 
 
 

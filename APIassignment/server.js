@@ -1,21 +1,22 @@
 const express = require("express")
-const userRouter = require("./routers/admin")
+const authRouter = require("./routers/auth")
+const adminRouter = require("./routers/admin")
+const studentRouter = require("./routers/student")
 const videoRouter = require("./routers/videos")
-const studentRouter=require("./routers/student")
-const authUser = require("./utils/auth")
+const { authUser } = require("./utils/auth")
 
-
-
-const app=express()
-
-
+const app = express()
 app.use(express.json())
-app.use("/admin",userRouter)
+
+// public
+app.use("/auth", authRouter)
+
+// protected
 app.use(authUser)
-app.use("/videos", videoRouter);
-app.use("/student",studentRouter)
+app.use("/admin", adminRouter)
+app.use("/student", studentRouter)
+app.use("/videos", videoRouter)
 
-
-app.listen(4000,()=>{
-    console.log("Server running at port 4000 ")
+app.listen(4000, () => {
+  console.log("Server running at port 4000")
 })
