@@ -18,6 +18,7 @@ function authUser(req, res, next) {
                 //req.headers.payload = payload
                 req.headers.uid = payload.uid
                 req.headers.email = payload.email
+                //role la pn enter karane
                 next()
                 // authorization()
             } catch (ex) {

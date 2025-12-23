@@ -117,6 +117,33 @@ router.delete("/delete/:courseId",(req, res) => {
   })
 })
 
+// entrolled student based on course_id
+router.get("/enrolled-students", (req, res) => {
+  const { course_id } = req.query;
+
+  if (!course_id) {
+    return res.send(result.createResult("courseId is required", null));
+  }
+
+  const sql = `
+    SELECT 
+      s.reg_no,
+      s.name,
+      s.email,
+      s.mobile_no,
+      c.course_id,
+      c.course_name
+    FROM students s
+    JOIN courses c ON s.course_id = c.course_id
+    WHERE c.course_id = ?
+    ORDER BY s.name
+  `;
+
+  pool.query(sql, [course_id], (err, data) => {
+    res.send(result.createResult(err, data));
+  });
+});
+
 
 module.exports = router;
  
