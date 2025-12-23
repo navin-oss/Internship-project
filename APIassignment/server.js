@@ -11,7 +11,7 @@ const app=express()
 app.use(express.json())
 app.use("/admin",userRouter)
 app.use(authUser)
-app.use("/video", videoRouter);
+app.use("/videos", videoRouter);
 
 
 app.listen(4000,()=>{
