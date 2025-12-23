@@ -69,19 +69,7 @@ router.delete("/delete/:videoId", adminAuth, (req, res) => {
   );
 });
 
-///student/my-courses GET get all registered courses of a student
-router.get('/my-courses', (req, res) => {
-  const { email } = req.query;
-   const sql = `SELECT *
-    FROM students s
-    JOIN courses c ON s.course_id = c.course_id
-    WHERE s.email = ?
-  `;
 
-  pool.query(sql, [email], (error, data) => {
-    res.send(result.createResult(error, data));
-  })
-});
 
 
 
