@@ -3,6 +3,8 @@ const authRouter = require("./routers/auth")
 const adminRouter = require("./routers/admin")
 const studentRouter = require("./routers/student")
 const videoRouter = require("./routers/videos")
+const studentRouter=require("./routers/student")
+const authUser=require("./utils/auth")
 const { authUser } = require("./utils/auth")
 
 const app = express()
