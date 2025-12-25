@@ -16,8 +16,9 @@ function authUser(req, res, next) {
             try {
                 const payload = jwt.verify(token, config.SECRET)
                 //req.headers.payload = payload
-                req.headers.uid = payload.uid
+              
                 req.headers.email = payload.email
+                req.headers.role = payload.role;
                 //role la pn enter karane
                 next()
                 // authorization()
@@ -29,5 +30,6 @@ function authUser(req, res, next) {
 }
 
 
-module.exports = authUser
+
+module.exports = authUser;
 

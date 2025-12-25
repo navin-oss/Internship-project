@@ -2,7 +2,7 @@ const express = require("express")
 const userRouter = require("./routers/admin")
 const videoRouter = require("./routers/videos")
 const studentRouter=require("./routers/student")
-const authUser = require("./utils/auth")
+const authUser=require("./utils/auth")
 
 
 
