@@ -1,13 +1,8 @@
+const express = require("express")
+const pool = require("../db/pool")
+const result = require("../utils/result")
 
-const express = require("express");
-const pool = require("../db/pool");
-const CryptoJS = require("crypto-js");
-const result = require("../utils/result");
-const adminAuth = require("../utils/auth");
-const config=require("../utils/config")
-const router=express.Router();
-
-
+const router = express.Router()
 
 
 ///student/my-courses GET get all registered courses of a student
