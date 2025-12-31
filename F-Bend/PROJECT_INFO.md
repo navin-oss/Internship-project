@@ -14,7 +14,7 @@ This project is a full-stack web application designed for managing online course
 ## 2. Project Structure
 
 ```
-F1/
+F-Bend/
 ├── project1/                 # Backend Code
 │   ├── db/
 │   │   └── pool.js           # Database connection pool
