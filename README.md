@@ -241,7 +241,7 @@ MIT License - feel free to use this project for learning or commercial purposes.
       </td>
       <td align="center">
         <img src="https://github.com/Prathmesh-k2.png?size=150" width="120" height="120" style="border-radius: 50%;" alt="Prathamesh Kokare">
-        <br><strong>Prathamesh Kokare</strong><br><em>Tester</em>
+        <br><strong>Prathamesh Kokare</strong><br><em>Tester and databsase engineer</em>
       </td>
     </tr>
   </table>
