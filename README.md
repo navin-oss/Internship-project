@@ -237,11 +237,11 @@ MIT License - feel free to use this project for learning or commercial purposes.
       </td>
       <td align="center">
         <img src="https://github.com/Pranoti-Sankpal.png?size=150" width="120" height="120" style="border-radius: 50%;" alt="Pranoti Sankpal">
-        <br><strong>Pranoti Sankpal</strong><br><em>UI/UX Designer</em>
+        <br><strong>Pranoti Sankpal</strong><br><em>Backend Engineer</em>
       </td>
       <td align="center">
         <img src="https://github.com/Prathmesh-k2.png?size=150" width="120" height="120" style="border-radius: 50%;" alt="Prathamesh Kokare">
-        <br><strong>Prathamesh Kokare</strong><br><em>Backend Engineer</em>
+        <br><strong>Prathamesh Kokare</strong><br><em>Tester</em>
       </td>
     </tr>
   </table>
