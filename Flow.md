@@ -141,8 +141,8 @@ Request → authUser middleware
 
 Result:
 
-* Students ❌ cannot access admin APIs
-* Admins ✅ can access everything
+* Students : cannot access admin APIs
+* Admins : can access everything
 
 ---
 
